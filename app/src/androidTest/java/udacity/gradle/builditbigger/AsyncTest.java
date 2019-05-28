@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.ExecutionException;
 
-import static junit.framework.Assert.assertNotNull;
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class AsyncTest {
@@ -21,18 +21,15 @@ public class AsyncTest {
             new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void notNullString() {
+    public void notNullString() throws ExecutionException, InterruptedException {
 
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask();
         endpointsAsyncTask.execute(activityTestRule.getActivity());
-        String joke = null;
-        try {
-            joke = endpointsAsyncTask.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        assertNotNull(joke);
+
+          String joke = endpointsAsyncTask.get();
+
+       // assertNotNull(joke);
+        assertEquals("This is totally a funny joke",joke);
+
     }
 }
